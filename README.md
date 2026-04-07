@@ -1,4 +1,4 @@
-# 🏥 Diabetes Hospital Readmission Analysis
+# Diabetes Hospital Readmission Analysis
 
 ## Overview
 SQL and Python analysis of 101,766 diabetic patient encounters across 
@@ -15,4 +15,4 @@ SQL and Python analysis of 101,766 diabetic patient encounters across
 - Two distinct high risk profiles identified — young patients and older high complexity patients
 
 ## Status
-🔄 SQL exploration complete — Python modeling phase in progress
+SQL exploration complete — Python modeling phase in progress
