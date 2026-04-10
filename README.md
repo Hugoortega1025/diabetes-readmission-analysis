@@ -1,5 +1,5 @@
 # Diabetes Hospital Readmission Analysis 
-### Healthcare Analytics | Predictice Modeling | Risk Flagging
+### Healthcare Analytics | Predictive Modeling | Risk Flagging
 
 ## Executive Summary
 11% of diabetic patients across 130 US hospitals are readmitted within 30 days of discharge - resulting in financial penalties for hospitals under the Hospital Readmissions Reduction Program (HRRP). Using SQL data exploration in Databricks and a tuned Random Forest model, this analysis identifies the clinical drivers of early readmission and develops a flagging system that catches 85% of actual readmissions at a 0.40 probability threshold. 
@@ -33,6 +33,16 @@ The aim of this analysis is to develop a flagging system using clinical encounte
 - Two high-risk profiles identified: Older patients (60-80) with multiple prior admissions on insulin show 20-28% readmission rates and young adults (20-30) show elevated rates (14.2%) unexplained by clinical features alone
 - Model achieves 64% AUC — below performance for reliable clinical deployment. 
 
+![SHAP Feature Importance](shap_importance.png)
+
+| Threshold | Caught % | Flagged % | Precision % |
+|-----------|----------|-----------|-------------|
+| 0.30      | 98.4%    | 95.6%     | 11.6% |
+| 0.40      | 85.4%    | 72.6%     | 13.3% |
+| 0.50      | 52.0%    | 34.3%     | 17.1% |
+
+![Threshold Analysis](threshold_analysis.png)
+
 ### Recommendation:
 **Stakeholder:** Hospital discharge planning teams and clinical operations leadership
 
@@ -41,7 +51,7 @@ Flag all patients with 2+ prior inpatient visits for enhanced discharge planning
 ## Tools & Platform
 - **Platform:** Databricks
 - **Languages:** SQL, Python
-- **Libraries:** Pandas, Numpy, Scikit-learn, spicy, SHAP
+- **Libraries:** Pandas, Numpy, Scikit-learn, scipy, SHAP
 
 
 ## Next Steps & Limitations
