@@ -1,18 +1,65 @@
-# Diabetes Hospital Readmission Analysis 
-### Healthcare Analytics | Predictive Modeling | Risk Flagging
+
+<div align="center">
+  <h1>Diabetes Hospital Readmission Analysis </h1>
+  <p><strong>Healthcare Analytics &nbsp;|&nbsp; 101,766 Patient Encounters &nbsp;|&nbsp; Analytical Insight + Machine Learning</strong></p>
+</div>
+
+## Background
+Under the Hospital Readmissions Reduction Program (HRRP), Hospitals face direct finanacial penalties for execissive 30-day readmissions. For diabetic patients — a population already at elevated risk for serious long-term complications — an early readmission is not just a cost event. It signals a failure somewhere in the discharge process: rushed planning, poor follow-up coordination, or a clinical picture that was more complex than the encounter data captured.
+
+This analysis addresses: which patients are most likely to return within 30 days, and can we identify them before discharge — while intervention is still possible?
 
 ## Executive Summary
-11% of diabetic patients across 130 US hospitals are readmitted within 30 days of discharge - resulting in financial penalties for hospitals under the Hospital Readmissions Reduction Program (HRRP). Using SQL data exploration in Databricks and a tuned Random Forest model, this analysis identifies the clinical drivers of early readmission and develops a flagging system that catches 85% of actual readmissions at a 0.40 probability threshold. 
+Across 130 US Hospotals, 11% of diabetic patients encounters result in early readmission - potentially leading to an overall early readmission rate that the HRRP penalizes hospitals for exceeding. The dominant driver is not diagnosis complexity but rather the amount of times has the patient been admitted before. 
 
-Prior inpatient visits is revealed as the dominant driver in early readmission rates - 5.5x increase from 0 to 8+ prior admissions. The model achieves a 64% AUC, not clinically reliable to drive absolute decisions - rather sufficient enough to be used as a tool in providing flagged profiles enhanced discharged planning. Further data - post-discharge follow ups and patient compliance is necessary to boost model performance for clinical deployment.  
+Readmission rates climb from 8% for patients with no prior admissions to 44% for patients with 8 or more - a 5.5x increase confirmed by both SQL exploration and SHAP feature importantce analysis. A tuned Random Forest model catches 85% of actual early readmissions at a 0.40 probability threshold, providing enough signal to flag high-risk patients for enhanced discharge care. The model does not replace clinincal judgment but provides a structured tool for better patient profile flagging.
 
 ## Business Problem
-Hospitals face direct financial penalties for excessive 30-day readmissions under HRRP. Additionally, for diabetic patients - considered as high-risk profiles of serious long term health complications - early readmission suggest a failure in discharge planning, treatment, or follow-up care. The key issue is identifying which patients are most likely to return prior to discharge, while intervention is still possible.
+Clinical staff operating under heavy caseloads face a consistent problem: not every patient who needs enhanced discharge planning receives it, leading to patients having to be readmitted. The financial stakes are direct. Under HRRP, hospitals with excessive readmission rates for high-risk populations including diabetic patients face Medicare payment reductions. Beyond the penalty, each early readmission represents additional resource consumption, extended staff burden, and a worsened patient outcome.
+The aim of this analysis: build a flagging system using clinical encounter data that identifies high-risk patients before discharge — giving discharge planning teams a decision-support tool, not a decision replacement.
 
-This is a precedent issue as clinical staff juggle between heavy caseloads leading to rushed discharge planning, shortage of staff, or poor communication from clinicians to patient physicians.
 
-The aim of this analysis is to develop a flagging system using clinical encounter data at hand that can identify high-risk cases of early readmission - permitting enhanced discharge planning leading to more stable patient results.
+## Who Is At Risk?
+ 
+Before modeling, SQL exploration across 101,766 encounters surfaced two distinct high-risk profiles. These are not statistical edge cases — they represent a meaningful share of the patient population.
+ 
+### Profile 1 — Older Patients With Repeat Admissions on Insulin
+ 
+| Attribute | Value |
+|---|---|
+| Age band | 60–80 |
+| Prior inpatient visits | 3+ |
+| Medication status | Insulin-dependent |
+| Readmission rate | 20–28% |
+ 
+This profile is the most clinically intuitive. High prior admission counts signal chronic instability — patients whose conditions are not being adequately managed between encounters. Insulin dependence adds complexity to discharge coordination. When both conditions are present, readmission rates climb well above the 11% baseline.
 
+### Profile 2 — Young Adults With Unexplained Elevated Risk
+ 
+| Attribute | Value |
+|---|---|
+| Age band | 20–30 |
+| Readmission rate | 14.2% |
+| Explained by clinical features? | No |
+ 
+Young adult diabetic patients get readmitted at 14.2% — above the hospital average — and this elevation is not explained by the clinical features available in the dataset. It is likely driven by factors absent from encounter records: social determinants of health, medication adherence, access to follow-up care, and support systems post-discharge. This profile represents the clearest case for expanded data collection.
+
+## Key Finding — Prior Inpatient Visits Drive Everything
+ 
+The SQL exploration phase, conducted in Databricks across 9 analytical steps, consistently surfaced one variable above all others: prior inpatient visits.
+ 
+| Prior Inpatient Visits | Readmission Rate |
+|---|---|
+| 0 | 8% |
+| 1–2 | ~14% |
+| 3–5 | ~28% |
+| 6–7 | ~38% |
+| 8+ | 44% |
+ 
+This relationship was confirmed independently by SHAP analysis on the trained Random Forest — prior inpatient visits ranked as the dominant feature contribution to individual readmission predictions, ahead of all medication, diagnosis, and demographic variables.
+ 
+**Business implication:** A patient's readmission history is both the most accessible and most predictive variable in the dataset. Hospitals already have this information at the point of discharge. The gap is not data — it is a systematic process for acting on it.
+ 
 ## Methodology
 1) SQL Exploration (Databricks) — 9-step EDA using CTEs, GROUP BY aggregations, CASE WHEN logic, HAVING filters, and subqueries across 101,766 patient encounters to identify readmission patterns by age, race, medications, diagnoses, insulin usage, and prior inpatient visits
 
