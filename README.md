@@ -125,9 +125,9 @@ Flag all patients with 2+ prior inpatient visits for enhanced discharge planning
 
 
 ### Key Findings
-- Prior inpatient visits are the strongest predictor of early readmission (8% -> 44%) - confirmed by SHAP as the most influential feature
-- Two high-risk profiles identified: Older patients (60-80) with multiple prior admissions on insulin show 20-28% readmission rates and young adults (20-30) show elevated rates (14.2%) unexplained by clinical features alone
-- Model achieves 64% AUC — below performance for reliable clinical deployment. 
+- SHAP analysis on the trained Random Forest independently confirms prior inpatient visits as the single most influential feature — validating the SQL-phase finding with a separate methodology
+- Model achieves 64% AUC — below the threshold for reliable standalone clinical deployment
+- At a 0.40 probability threshold, the model catches 85.4% of true early readmissions while flagging 72.6% of all patients — useful as a supporting signal, not a replacement for the simple admission-history rule already established
 
 ![SHAP Feature Importance](visuals/shap_importance.png)
 
