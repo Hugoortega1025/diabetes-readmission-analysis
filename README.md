@@ -1,13 +1,13 @@
 
 <div align="center">
-  <h1>Diabetes Hospital Readmission Analysis </h1>
+  <h1>Clinical Risk Audit: Mitigating HRRP Financial Penalties</h1>
   <p><strong>Healthcare Analytics &nbsp;|&nbsp; 101,766 Patient Encounters &nbsp;|&nbsp; Analytical Insight + Machine Learning</strong></p>
 </div>
 
 ## Background
 Under the Hospital Readmissions Reduction Program (HRRP), Hospitals face direct finanacial penalties for execissive 30-day readmissions. For diabetic patients — a population already at elevated risk for serious long-term complications — an early readmission is not just a cost event. It signals a failure somewhere in the discharge process: rushed planning, poor follow-up coordination, or a clinical picture that was more complex than the encounter data captured.
 
-This analysis addresses: which patients are most likely to return within 30 days, and can we identify them before discharge — while intervention is still possible?
+The Objective: Identify high-risk "Penalty Clusters" before discharge so the hospitals can deploy targeted interventions (follow-ups, pharmacist reviews) to improve patient outcomes but also avoid financial penalty events.
 
 ## Executive Summary
 Across 130 US Hospotals, 11% of diabetic patients encounters result in early readmission - potentially leading to an overall early readmission rate that the HRRP penalizes hospitals for exceeding. The dominant driver is not diagnosis complexity but rather the amount of times has the patient been admitted before. 
