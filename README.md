@@ -32,7 +32,7 @@ The aim of this analysis: build a flagging system using clinical encounter data 
 
 ### Age Distribution
 
-![Age_readmission](visuals/age_group_readmission.png)
+![age_readmission](visuals/age_readmission.png)
 
 Young adults (20-30) showed a surprisingly elevated 14% early readmission rate — higher than every age band except patients over 60. This raised the question addressed below: is age itself a risk factor, or is something else driving this?
 
@@ -61,7 +61,7 @@ The age-group elevation seen above is not a separate, unexplained risk factor �
 | 1-2 visits | 20.9% |
 | 3+ visits | 41.6% |
 
-![Young Adult Early Readmission Rate by Prior Inpatient Visits](images/young_adult_inpatient_readmission.png)
+![Young Adult Early Readmission Rate by Prior Inpatient Visits](visuals/young_adult_inpatient_readmission.png)
 
 Young adults with no admission history are actually below the hospital's overall average. The elevated group-wide rate is driven entirely by the smaller subset with repeat admissions — the same signal that explains risk everywhere else in this population. There is no distinct young-adult risk category requiring separate data collection; the existing signal already covers it.
 
@@ -77,7 +77,7 @@ The SQL exploration phase, conducted in Databricks, consistently surfaced one va
 | 6–7 | 34.9% |
 | 8+ | 43.3% |
 
-![Early Readmission Rate by Prior Inpatient Visits](images/inpatient_visits_readmission.png)
+![Early Readmission Rate by Prior Inpatient Visits](visuals/inpatient_visits_readmission.png)
 
 This relationship was confirmed independently by SHAP analysis on the trained Random Forest — prior inpatient visits ranked as the dominant feature contribution to individual readmission predictions, ahead of all medication, diagnosis, and demographic variables. It also holds true within the young-adult subgroup above, confirming it as a universal driver rather than one specific to older patients.
 
@@ -129,7 +129,7 @@ Flag all patients with 2+ prior inpatient visits for enhanced discharge planning
 - Two high-risk profiles identified: Older patients (60-80) with multiple prior admissions on insulin show 20-28% readmission rates and young adults (20-30) show elevated rates (14.2%) unexplained by clinical features alone
 - Model achieves 64% AUC — below performance for reliable clinical deployment. 
 
-![SHAP Feature Importance](shap_importance.png)
+![SHAP Feature Importance](visuals/shap_importance.png)
 
 | Threshold | Caught % | Flagged % | Precision % |
 |-----------|----------|-----------|-------------|
@@ -137,7 +137,7 @@ Flag all patients with 2+ prior inpatient visits for enhanced discharge planning
 | 0.40      | 85.4%    | 72.6%     | 13.3% |
 | 0.50      | 52.0%    | 34.3%     | 17.1% |
 
-![Threshold Analysis](threshold_analysis.png)
+![Threshold Analysis](visuals/threshold_analysis.png)
 
 ### Recommendation:
 **Stakeholder:** Hospital discharge planning teams and clinical operations leadership
